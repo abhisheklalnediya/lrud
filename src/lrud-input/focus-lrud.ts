@@ -29,37 +29,39 @@ export default function focusLrud(focusStore: FocusStore) {
     },
   };
 
-  const keydownHandler = throttle(
-    function (e: KeyboardEvent) {
-      // @ts-ignore
-      const bindingName = keyToBindingMap[e.key];
-      // @ts-ignore
-      const binding = lrudMapping[bindingName];
-
-      if (typeof binding === 'function') {
-        e.preventDefault();
-        e.stopPropagation();
-
-        binding();
+  
+  function subscribe(throttleDelay:number) {
+    const keydownHandler = throttle(
+      function (e: KeyboardEvent) {
+        // @ts-ignore
+        const bindingName = keyToBindingMap[e.key];
+        // @ts-ignore
+        const binding = lrudMapping[bindingName];
+  
+        if (typeof binding === 'function') {
+          e.preventDefault();
+          e.stopPropagation();
+  
+          binding();
+        }
+      },
+      // TODO: support throttling. Ideally on a per-node basis.
+      throttleDelay,
+      {
+        trailing: false,
       }
-    },
-    // TODO: support throttling. Ideally on a per-node basis.
-    0,
-    {
-      trailing: false,
-    }
-  );
-
-  function subscribe() {
+    );
     window.addEventListener('keydown', keydownHandler);
+
+    function unsubscribe() {
+      window.removeEventListener('keydown', keydownHandler);
+    }
+
+    return unsubscribe
   }
 
-  function unsubscribe() {
-    window.removeEventListener('keydown', keydownHandler);
-  }
 
   return {
     subscribe,
-    unsubscribe,
   };
 }

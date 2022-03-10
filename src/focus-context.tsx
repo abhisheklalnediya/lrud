@@ -11,11 +11,13 @@ function FocusRoot({
   wrapping,
   children,
   pointerEvents,
+  throttle = 0
 }: {
   children?: React.ReactNode;
   orientation?: Orientation;
   wrapping?: boolean;
   pointerEvents?: boolean;
+  throttle?:number
 }) {
   const rootElRef = useRef(null);
   const [providerValue] = useState<ProviderValue>(() => {
@@ -52,10 +54,9 @@ function FocusRoot({
 
   useEffect(() => {
     const lrud = lrudInput(providerValue.store);
-    lrud.subscribe();
-
+    const unsubscribe = lrud.subscribe(throttle);
     return () => {
-      lrud.unsubscribe();
+      unsubscribe();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
