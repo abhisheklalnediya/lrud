@@ -1,7 +1,7 @@
 {
-  "name": "@please/lrud",
+  "name": "lal-lrud",
   "version": "0.0.24",
-  "description": "A React library for managing focus in TV apps.",
+  "description": "A React library for managing focus in TV apps. Fork of @please/lrud",
   "main": "dist/index.js",
   "module": "dist/lrud.esm.js",
   "typings": "dist/index.d.ts",
@@ -26,7 +26,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jamesplease/lrud.git"
+    "url": "git+https://github.com/abhisheklalnediya/lrud.git"
   },
   "keywords": [
     "lrud",
@@ -39,10 +39,7 @@
   ],
   "author": "James Please",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/jamesplease/lrud/issues"
-  },
-  "homepage": "https://github.com/jamesplease/lrud#readme",
+  "homepage": "https://github.com/abhisheklalnediya/lrud#readme",
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0"
   },
