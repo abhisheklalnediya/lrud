@@ -1,6 +1,6 @@
 {
   "name": "lal-lrud",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "description": "A React library for managing focus in TV apps. Fork of @please/lrud",
   "main": "dist/index.js",
   "module": "dist/lrud.esm.js",
