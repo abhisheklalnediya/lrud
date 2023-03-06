@@ -1,5 +1,5 @@
 import throttle from './throttle';
-import keyToBindingMap from './key-to-binding-map';
+import {keyToBindingMap, keyCodeToBindingMap} from './key-to-binding-map';
 import { FocusStore } from '../types';
 
 export default function focusLrud(focusStore: FocusStore) {
@@ -29,39 +29,37 @@ export default function focusLrud(focusStore: FocusStore) {
     },
   };
 
-  
-  function subscribe(throttleDelay:number) {
-    const keydownHandler = throttle(
-      function (e: KeyboardEvent) {
-        // @ts-ignore
-        const bindingName = keyToBindingMap[e.key];
-        // @ts-ignore
-        const binding = lrudMapping[bindingName];
-  
-        if (typeof binding === 'function') {
-          e.preventDefault();
-          e.stopPropagation();
-  
-          binding();
-        }
-      },
-      // TODO: support throttling. Ideally on a per-node basis.
-      throttleDelay,
-      {
-        trailing: false,
+  const keydownHandler = throttle(
+    function (e: KeyboardEvent) {
+      // @ts-ignore
+      const bindingName = keyToBindingMap[e.key] || keyCodeToBindingMap[e.keyCode];
+      // @ts-ignore
+      const binding = lrudMapping[bindingName];
+
+      if (typeof binding === 'function') {
+        e.preventDefault();
+        e.stopPropagation();
+
+        binding();
       }
-    );
-    window.addEventListener('keydown', keydownHandler);
-
-    function unsubscribe() {
-      window.removeEventListener('keydown', keydownHandler);
+    },
+    // TODO: support throttling. Ideally on a per-node basis.
+    0,
+    {
+      trailing: false,
     }
+  );
 
-    return unsubscribe
+  function subscribe() {
+    window.addEventListener('keydown', keydownHandler);
   }
 
+  function unsubscribe() {
+    window.removeEventListener('keydown', keydownHandler);
+  }
 
   return {
     subscribe,
+    unsubscribe,
   };
 }
