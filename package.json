@@ -1,6 +1,6 @@
 {
   "name": "lal-lrud",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "description": "A React library for managing focus in TV apps. Fork of @please/lrud",
   "main": "dist/index.js",
   "module": "dist/lrud.esm.js",
@@ -41,7 +41,7 @@
   "license": "MIT",
   "homepage": "https://github.com/abhisheklalnediya/lrud#readme",
   "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0"
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "5.14.1",
